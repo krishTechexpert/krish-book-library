@@ -1,0 +1,5 @@
+//In main.scss, use @use to import index.scss with a namespace:
+// @use statement allows you to access all the forwarded variables and mixins:
+
+
+@use './scss/index' as styles;

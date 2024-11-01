@@ -1,0 +1,6 @@
+//In index.scss, use @forward for each partial (_reset.scss, _variables.scss, _header.scss):
+//@forward: Use it in index.scss to expose modules.
+
+@forward 'reset';
+@forward 'variables';
+@forward 'header';

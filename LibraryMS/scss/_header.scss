@@ -1,0 +1,5 @@
+@use './scss/index' as styles;
+
+header{
+  background-color: styles.$secondary-color;
+}
