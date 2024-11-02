@@ -1,0 +1,17 @@
+// This is the main entry file that includes index.scss (with shared variables and reset styles) as well as _header.scss and _footer.scss. By doing so, it has access to everything defined in the other files.
+
+//In main.scss, use @use to import index.scss with a namespace:
+// @use statement allows you to access all the forwarded variables and mixins:
+// This gives main.scss access to all variables, mixins, and other styles defined in the forwarded files.
+
+@use './index';
+@use './header';
+@use './content';
+@use './footer';
+
+body{
+  font-family: index.$font-stack; //Accessing a variable directly from index
+  font-size:index.$font-size;
+  font-weight: index.$font-weight;
+
+}

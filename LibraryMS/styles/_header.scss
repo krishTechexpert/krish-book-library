@@ -1,0 +1,10 @@
+@use 'index' as *;
+
+header{
+  background-color: $secondary-color;
+  color:$primary-color;
+  @include center;
+  @include boxShadow($gray-color);
+  @include PaddingVertical(5px,5px);
+  @include Uppercase(uppercase)
+}

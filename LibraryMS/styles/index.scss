@@ -1,0 +1,7 @@
+//Acts as the central file to collect and forward common files (_variables.scss and _reset.scss).
+//Note: We use @forward here to expose variables from _variables.scss to other files that @use index.
+//@forward: Use it in index.scss to expose modules.
+
+@forward 'reset';
+@forward 'variables';
+@forward 'mixin';

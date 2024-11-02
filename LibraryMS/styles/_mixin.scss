@@ -1,0 +1,26 @@
+@mixin center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin boxShadow($color){
+  box-shadow: 0 0 4px 1px $color;
+}
+
+@mixin PaddingVertical($top,$bottom){
+  padding-top: $top;
+  padding-bottom: $bottom;
+}
+
+@mixin Uppercase($value){
+  text-transform: $value;
+}
+
+@mixin BorderRight($size,$color){
+  border-right:$size solid $color;
+}
+
+@mixin BorderRadius($radius){
+  border-radius: $radius;
+}

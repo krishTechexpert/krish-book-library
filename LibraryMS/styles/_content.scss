@@ -1,0 +1,51 @@
+@use 'index' as *;
+
+.grid-container{
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 100vh ;
+  sidebar{
+    @include BorderRight(1px,$gray-color);
+    padding: 20px;
+  }
+  .mid-content{
+    padding:20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 40px 40px minmax(0, 1fr); /* Third row takes remaining height */
+    gap:20px;
+    height: 100vh; /* Ensure the grid container has full viewport height */
+
+    h2{
+      text-align: center;
+    }
+    table{
+      align-self: start; 
+      width:100%;
+      tr,td{
+        padding:2px;
+        text-align: left;
+        font-size:14px;
+        color:$black;
+      }
+    }
+  }
+}
+
+.nav-btn{
+  border:none;
+  padding:5px 20px;
+  color: $black;
+  text-transform: capitalize;
+  background-color: $secondary-color;
+  margin-top: 15px;
+  cursor: pointer;
+  @include BorderRadius(4px);
+  &:first-child{
+    margin-top: 0;
+  }
+  &:hover,&.active{
+    background-color: $primary-color;
+    color:$secondary-color;
+  }
+}
