@@ -32,20 +32,28 @@
   }
 }
 
-.nav-btn{
+
+.btn{
   border:none;
+  color: $secondary-color;
   padding:5px 20px;
-  color: $black;
   text-transform: capitalize;
-  background-color: $secondary-color;
+  background-color: $primary-color;
   margin-top: 15px;
   cursor: pointer;
   @include BorderRadius(4px);
-  &:first-child{
-    margin-top: 0;
-  }
+}
+
+.nav-btn{
+  @extend .btn;
+  color: $black;
+  background-color: $secondary-color;
   &:hover,&.active{
     background-color: $primary-color;
     color:$secondary-color;
   }
+}
+
+fieldset {
+  border:0;
 }
