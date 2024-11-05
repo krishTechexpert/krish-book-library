@@ -1,27 +1,40 @@
-import AddStudentView from "../views/addStudentView.js";
 import * as model from "../model/model.js";
+import AddStudentView from "../views/addStudentView.js";
+import StudentList from "../views/studentsList.js";
+import AddBook from "../views/addBook.js";
 
 const addStudentController = function(data){
   model.studentDetails(data)
   console.log("store",model.state)
+}
+
+const studentListController = function(){
+  const students=model.getAllStudenstList();
+  return students;
+}
+
+const booksIssuesPerStudentController = function(stdId){
+  try{
+    model.booksIssuesToStudents(stdId)
+
+  }catch(error){
+    StudentList.errorMessage(error.message)
+  }
+}
+
+const addBookController = function(){
 
 }
 
+function appStart(){
+  //student
+  AddStudentView.showStudentForm(addStudentController);
+  StudentList.showStudentRecords(studentListController)
+  StudentList.bookIssuesToStudent(booksIssuesPerStudentController);
 
-// add new student
-const addStudentButton = document.querySelector('.add-student-btn');
-addStudentButton.addEventListener('click',(e) =>{
-  document.querySelector('#student-list').innerHTML='';
-  // render UI
-  AddStudentView.render()
-  // Attach the form submission handler
-  AddStudentView.insertNewStudentHandler(addStudentController)
-})
+  // book
+  AddBook.showBookForm(addBookController)
+}
 
-//show student list
-const studentList =  document.querySelector('#view-student-list');
-studentList.addEventListener('click',function(){
-  AddStudentView.listMarkup(model.state.students)
-})
-//click on book to check how many students take books
-const allStudentsList=document.querySelector('#student-list');
+appStart();
+

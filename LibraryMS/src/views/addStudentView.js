@@ -1,8 +1,18 @@
 import View from "./View";
 
 class AddStudentView extends View{
-  _parentElement = document.getElementById('add-student');
-  _list = document.getElementById('student-list');
+  _parentElement = document.getElementById('add-student-container');
+  _addStudentButton = document.querySelector('#add-student-btn');
+
+  showStudentForm(addStudentController){
+    this._addStudentButton.addEventListener('click',() => {
+      this.makeButtonActive(this._addStudentButton)
+      this.resetHTML(this._parentElement)
+      this.render();
+      this.insertNewStudentHandler(addStudentController);
+    })
+  }
+
   insertNewStudentHandler(addStudentController){
     this._parentElement.querySelector('#student-form').addEventListener('submit',(e) =>{
       e.preventDefault();
@@ -16,7 +26,6 @@ class AddStudentView extends View{
       studentObj.maxAllowedBook=10;
       studentObj.assignBooks=[];
       addStudentController(studentObj)
-      this._data=studentObj;
       this.resetInputField();
 
     })
@@ -54,32 +63,7 @@ class AddStudentView extends View{
     this._parentElement.querySelector('#address').value='';
   }
 
-  listMarkup(data){
-    if(data.length === 0) return null;
-    const markup=` <h2>Students List</h2>      
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>StudentId</th>
-          <th>Phone</th>
-          <th>Address</th>
-          <th>Class</th>
-          <th>Assigned Books</th>
-        </tr>
-       ${data.map(std => {
-          return `<tr class="student-record">
-          <td>${std.name}</td>
-          <td>${std.id}</td>
-          <td>${std.phone}</td>
-          <td>${std.address}</td>
-          <td>${std.class}</td>
-          <td class="asigned-book">Books</td>
-          </tr>`
-        })}
-      </table>`
-    this._parentElement.innerHTML='';
-    document.querySelector('#student-list').innerHTML=markup;
-  }
+  
   showBookAssinedPerStudent(){
 
   }
