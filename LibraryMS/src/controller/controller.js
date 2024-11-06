@@ -27,6 +27,7 @@ const addBookController = function(){
 }
 
 function appStart(){
+  console.log('app starting...')
   //student
   AddStudentView.showStudentForm(addStudentController);
   StudentList.showStudentRecords(studentListController)
