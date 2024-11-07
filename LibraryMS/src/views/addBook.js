@@ -29,7 +29,7 @@ class AddBook extends View{
           </fieldset>
           <fieldset> 
             <label for="ISBN">ISBN:</label>
-            <input type="text" placeholder="enter ISBN" id="ISBN" name="ISBN"/>
+            <input type="text" placeholder="enter ISBN" min="5" id="ISBN" name="ISBN"/>
           </fieldset>
           <button class="btn">Add Book</button>
         </form>
@@ -45,13 +45,18 @@ class AddBook extends View{
         for(let [key,value] of data){
           bookObj[key]=value
         }
-        bookObj.id='STU'+(Math.floor(Math.random()*100)+1);
-        bookObj.maxAllowedBook=10;
-        bookObj.assignBooks=[];
-        addStudentController(studentObj)
+      
+        addBookController(bookObj)
         this.resetInputField();
   
       })
+    }
+
+    resetInputField(){
+      this._parentElement.querySelector('#name').value='';
+      this._parentElement.querySelector('#author').value='';
+      this._parentElement.querySelector('#publisher').value='';
+      this._parentElement.querySelector('#ISBN').value='';
     }
 }
 export default new AddBook();
