@@ -2,6 +2,9 @@ import View from "./View";
 class IssuesBook extends View {
   _parentElement=document.querySelector('#issue-book-container');
   _issueBook=document.querySelector('#issue-book-btn');
+  _overlay=document.querySelector('.overlay');
+  _model=document.querySelector('.model');
+  _closedModel=document.querySelector('.closed-btn')
   _mapBookWithStudent;
   
 
@@ -58,6 +61,10 @@ class IssuesBook extends View {
       selectElement.addEventListener('click',() => {
         const {stdId:StudentId, bookId} = this._mapBookWithStudent
         mapBookwithStudentController(StudentId,bookId)
+        this._parentElement.querySelector('#selectbook').value='';
+        this._parentElement.querySelector('#selectstudent').value='';
+        this._parentElement.querySelector('.book-details').remove();
+        this._parentElement.querySelector('.student-details').remove();
       })
     }
   }
@@ -103,6 +110,58 @@ class IssuesBook extends View {
       }
     })
   }
+  bookIssueListModel(student){
+    const modelDataTable=this._model.querySelector('.table')
+    if(modelDataTable){
+      modelDataTable.remove();
+    }
+    this.addHandlerShowModal(); 
+
+   const markup = `<div class="table">
+    <h2>List of books issued to ${student.name}</h2>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Book Name</th>
+        <th>Issued date</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>ISBN</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Dear zoo</td>
+        <td>May 23,2024</td>
+        <td>Rod</td>
+        <td> kk publication</td>
+        <td>12345</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Dear zoo</td>
+        <td>May 23,2024</td>
+        <td>Rod</td>
+        <td> kk publication</td>
+        <td>12345</td>
+      </tr>
+    </table> </div>
+   `;
+
+   this._model.insertAdjacentHTML('afterbegin',markup)
+   
+   this._closedModel.addEventListener('click',this.toggleWindow.bind(this))
+   this._overlay.addEventListener('click',this.toggleWindow.bind(this))
+  }
+  toggleWindow(){
+    this._overlay.classList.toggle('hidden')
+    this._model.classList.toggle('hidden')
+  }
+  addHandlerShowModal(){
+    this.toggleWindow();
+    
+  }
+  
+  
 }
 
 export default new IssuesBook();

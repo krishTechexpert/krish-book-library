@@ -18,24 +18,22 @@ export const booksIssuesToStudents=function(studentId){
   if(student.assignBooks.length ===0){
     throw new Error('No books assiged yet')
   }else {
-    UpdateBooksIssuesToStudents(student.id)
+    const studentWithBooks = UpdateBooksIssuesToStudents(student.id)
+    return studentWithBooks
   }
-  console.log("first time check book status",state)
 }
 
 export const UpdateBooksIssuesToStudents=function(studentId,bookId=''){
-  console.log(studentId,bookId)
 
   const book = bookId && state.books.find(b=>b.ISBN === bookId)
-  
   const student =state.students.find(row => row.id === studentId)
-  if(bookId) {
+  if(book && student) {
+    book.issueDate=new Date().toLocaleDateString();
     student.assignBooks.push(book)
     state.students[student.id] = student;
   }
+  return student;
   
-  
-  console.log("update book status",state)
 }
 
 export const insertBook = function(books){

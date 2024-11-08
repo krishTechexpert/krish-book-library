@@ -45,7 +45,7 @@ class AddBook extends View{
         for(let [key,value] of data){
           bookObj[key]=value
         }
-      
+        //bookObj.date=new Date().toLocaleDateString();
         addBookController(bookObj)
         this.resetInputField();
   
