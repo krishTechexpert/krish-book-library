@@ -65,7 +65,14 @@ class IssuesBook extends View {
     const selectElement=this._parentElement.querySelector('.issue-btn');
     if(selectElement) {
       selectElement.addEventListener('click',() => {
-        const {stdId:StudentId, bookId} = this._mapBookWithStudent
+
+        if((this._parentElement.querySelector('#selectbook').value =='') || 
+          (this._parentElement.querySelector('#selectstudent').value=='')){
+            return;
+          }
+        const {stdId:StudentId, bookId} = this._mapBookWithStudent;
+
+
         mapBookwithStudentController(StudentId,bookId)
         this._parentElement.querySelector('#selectbook').value='';
         this._parentElement.querySelector('#selectstudent').value='';
@@ -78,7 +85,7 @@ class IssuesBook extends View {
   selectBook(books){
     const selectElement=this._parentElement.querySelector('#selectbook');
     selectElement.addEventListener('change',(e) =>{
-
+      
     const detailsElement=  this._parentElement.querySelector('.book-details')
       if(detailsElement){
         detailsElement.remove()
@@ -99,7 +106,7 @@ class IssuesBook extends View {
   selectStudent(students){
     const selectElement=this._parentElement.querySelector('#selectstudent');
     selectElement.addEventListener('change',(e) =>{
-
+      
     const detailsElement=  this._parentElement.querySelector('.student-details')
       if(detailsElement){
         detailsElement.remove()
@@ -121,7 +128,25 @@ class IssuesBook extends View {
     if(modelDataTable){
       modelDataTable.remove();
     }
-this.addHandlerShowModal()
+    function columndData(){
+      let rowsMarkup='';
+      if (student && Array.isArray(student.assignBooks)) {
+        console.log(student)
+      student.assignBooks.forEach((book,index) => {
+        return rowsMarkup += `<tr>
+          <td>${index+1}</td>
+           <td>${book.name}</td>
+            <td>${book.issueDate}</td>
+            <td>${book.author}</td>
+            <td>${book.publisher}</td>
+            <td>${book.ISBN}</td>
+        </tr>`
+      });
+      }
+      return rowsMarkup;
+    }
+
+    this.addHandlerShowModal()
    const markup = `<div class="table">
     <h2>List of books issued to ${student.name}</h2>
     <table>
@@ -133,22 +158,9 @@ this.addHandlerShowModal()
         <th>Publisher</th>
         <th>ISBN</th>
       </tr>
-      <tr>
-        <td>1</td>
-        <td>Dear zoo</td>
-        <td>May 23,2024</td>
-        <td>Rod</td>
-        <td> kk publication</td>
-        <td>12345</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td>Dear zoo</td>
-        <td>May 23,2024</td>
-        <td>Rod</td>
-        <td> kk publication</td>
-        <td>12345</td>
-      </tr>
+      ${columndData()}
+      
+      
     </table> </div>
    `;
 

@@ -17,10 +17,10 @@ const studentListController = function(){
 const booksIssuesPerStudentController = function(stdId){
   try{
     const student = model.booksIssuesToStudents(stdId);
-    console.log(student)
     IssuesBook.bookIssueListModel(student)
 
   }catch(error){
+    console.log(error)
     StudentList.errorMessage(error.message)
   }
 }
@@ -34,7 +34,12 @@ const issuesBookController = function(){
 }
 
 const mapBookwithStudentController = function(stdId,bookId){
-  model.UpdateBooksIssuesToStudents(stdId,bookId)
+  try{
+    model.UpdateBooksIssuesToStudents(stdId,bookId)
+  }catch(error){
+    console.log(error)
+    StudentList.errorMessage(error.message)
+  }
 
 }
  
@@ -52,6 +57,7 @@ function appStart(){
 
   IssuesBook.showBookIssueForm(issuesBookController,mapBookwithStudentController);
   
+ 
 }
 
 appStart();

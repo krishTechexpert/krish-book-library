@@ -23,7 +23,7 @@ class AddStudentView extends View{
         studentObj[key]=value
       }
       studentObj.id='STU'+(Math.floor(Math.random()*100)+1);
-      studentObj.maxAllowedBook=10;
+      studentObj.maxAllowedBook=3;
       studentObj.assignBooks=[];
       addStudentController(studentObj)
       this.resetInputField();
