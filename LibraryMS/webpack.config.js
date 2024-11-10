@@ -9,7 +9,7 @@ module.exports = {
     filename: 'bundle.js',  // Output JavaScript file
     clean: true,  // Clean the output directory before each build
   },
-  devtool: 'inline-source-map',
+  devtool: process.env.NODE_ENV === 'production' ? 'source-map' : 'inline-source-map',
   module: {
     rules: [
       {
@@ -59,12 +59,8 @@ module.exports = {
     })
   ],
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist'),  // Update to `static`
-    },
     compress: true,
     port: 9000,
     open: true,  // Open the browser after starting the server
   },
-  mode: 'development',  // Set the mode to development for easier debugging
 };

@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js",
-    "build": "webpack --config webpack.config.js",
+    "start": "webpack serve --config webpack.config.js --mode development",
+    "build": "webpack --config webpack.config.js --mode production",
     "sass:watch": "sass --watch ./styles/main.scss:./css/index.css"
   },
   "author": "",

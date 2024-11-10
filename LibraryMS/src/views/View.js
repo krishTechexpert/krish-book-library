@@ -24,7 +24,7 @@ export default class View {
         </div>
       `;
       this._parentElement.insertAdjacentHTML('afterbegin',markup);
-      setTimeout(() => this._parentElement.querySelector('.error').remove(),2000)
+      message && setTimeout(() => this._parentElement.querySelector('.error').remove(),2000)
   }
   resetHTML(Element){
     Element.closest('.mid-content').querySelectorAll(".main-content").forEach(ele => ele.innerHTML='')
