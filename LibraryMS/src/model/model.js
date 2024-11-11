@@ -5,11 +5,18 @@ export const state = {
 
 export const insertStudentDetails = function(data){
   state.students.push(data)
-  localStorage.setItem('studentsTable',JSON.stringify(state.students))
+  persistStudents(state.students)
 }
 
 export const getAllStudenstList=function(){
   return state.students;
+}
+
+export const deleteStudent =function(id){
+  const studentIndex =state.students.findIndex(row => row.id === id)
+  state.students.splice(studentIndex,1)
+  persistStudents(state.students)
+
 }
 
 export const booksIssuesToStudents=function(studentId){
@@ -36,7 +43,7 @@ export const UpdateBooksIssuesToStudents=function(studentId,bookId=''){
     }
     
     if(student.maxAllowedBook ==0){
-      throw new Error('Only 3 Books allows per student to issue')
+      throw new Error('Only 3 Books allows per student to issue. Please return some of your books to get new one.')
     }
 
     book.issueDate=new Date().toLocaleDateString();
@@ -52,7 +59,15 @@ export const UpdateBooksIssuesToStudents=function(studentId,bookId=''){
 
 export const insertBook = function(books){
   state.books.push(books)
-  localStorage.setItem('booksTable',JSON.stringify(state.books))
+  persistBooks(state.books)
+}
+
+function persistStudents(students){
+  localStorage.setItem('studentsTable',JSON.stringify(students))
+}
+
+function persistBooks(books){
+  localStorage.setItem('booksTable',JSON.stringify(books))
 }
 
 const storage1=localStorage.getItem('studentsTable');

@@ -4,6 +4,7 @@ import StudentList from "../views/studentsList.js";
 import AddBook from "../views/addBook.js";
 import IssuesBook from "../views/issuesBook.js";
 
+
 const addStudentController = function(data){
   model.insertStudentDetails(data)
   console.log("store",model.state)
@@ -12,6 +13,11 @@ const addStudentController = function(data){
 const studentListController = function(){
   const students=model.getAllStudenstList();
   return students;
+}
+
+const deleteStudentController = function(id){
+  model.deleteStudent(id)
+  StudentList.updateStudentRecord(model.state.students)
 }
 
 const booksIssuesPerStudentController = function(stdId){
@@ -42,6 +48,8 @@ const mapBookwithStudentController = function(stdId,bookId){
   }
 
 }
+
+
  
 
 
@@ -51,7 +59,7 @@ function appStart(){
   AddStudentView.showStudentForm(addStudentController);
   StudentList.showStudentRecords(studentListController)
   StudentList.bookIssuesToStudent(booksIssuesPerStudentController);
-
+  StudentList.deleteStudent(deleteStudentController)
   // book
   AddBook.showBookForm(addBookController)
 

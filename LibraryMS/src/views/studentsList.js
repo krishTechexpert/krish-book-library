@@ -13,6 +13,9 @@ class StudentList extends View{
 
     })
   }
+  updateStudentRecord(records){
+    this.render(records)
+  }
 
   generateMarkup(data){
     let markup=` <h2>Students List</h2>      
@@ -24,6 +27,7 @@ class StudentList extends View{
           <th>Address</th>
           <th>Class</th>
           <th>Assigned Books</th>
+          <th>Delete</th>
         </tr>`;
         
         if(data?.length === 0) {
@@ -37,6 +41,7 @@ class StudentList extends View{
             <td>${std.address}</td>
             <td>${std.class}</td>
             <td class="asigned-book" data-stdId-book-asigned="${std.id}">Books</td>
+            <td class="delete-student" data-stdId="${std.id}">X</td>
             </tr>`
           })
           return markup  + result.join('')
@@ -46,14 +51,21 @@ class StudentList extends View{
     this._parentElement.addEventListener('click',function(e){
 
       const node =e.target.closest('.asigned-book');
-      if(!node) return null;
-      const studentId=node.dataset.stdidBookAsigned;
-      handler(studentId)
-
+        if(!node) return null;
+        const studentId=node.dataset.stdidBookAsigned;
+        handler(studentId)
+      
     })
   }
-  clear(){
+  deleteStudent(handler){
+    this._parentElement.addEventListener('click',function(e){
 
+      const node =e.target.closest('.delete-student');
+        if(!node) return null;
+        const studentId=node.dataset.stdId;
+        handler(studentId)
+      
+    })
   }
 }
 export default new StudentList();
