@@ -1,5 +1,6 @@
 export default class View {
   _data;
+  
   render(data=false){
     this._data=data;
     const markup = data ? this.generateMarkup(data): this.generateMarkup();

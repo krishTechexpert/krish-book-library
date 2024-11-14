@@ -47,13 +47,13 @@ class StudentList extends View{
           return markup  + result.join('')
         }
   }
-  bookIssuesToStudent(handler){
+  bookIssuesToStudent(booksIssuesPerStudentController){
     this._parentElement.addEventListener('click',function(e){
 
       const node =e.target.closest('.asigned-book');
         if(!node) return null;
         const studentId=node.dataset.stdidBookAsigned;
-        handler(studentId)
+        booksIssuesPerStudentController(studentId)
       
     })
   }

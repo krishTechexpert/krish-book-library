@@ -65,13 +65,12 @@ class IssuesBook extends View {
     const selectElement=this._parentElement.querySelector('.issue-btn');
     if(selectElement) {
       selectElement.addEventListener('click',() => {
-
-        if((this._parentElement.querySelector('#selectbook').value =='') || 
-          (this._parentElement.querySelector('#selectstudent').value=='')){
+      //  if(!this._mapBookWithStudent) return
+        if((this._parentElement.querySelector('#selectbook').value='') || 
+          (this._parentElement.querySelector('#selectstudent').value='')){
             return;
           }
         const {stdId:StudentId, bookId} = this._mapBookWithStudent;
-
 
         mapBookwithStudentController(StudentId,bookId)
         this._parentElement.querySelector('#selectbook').value='';
@@ -131,7 +130,6 @@ class IssuesBook extends View {
     function columndData(){
       let rowsMarkup='';
       if (student && Array.isArray(student.assignBooks)) {
-        console.log(student)
       student.assignBooks.forEach((book,index) => {
         return rowsMarkup += `<tr>
           <td>${index+1}</td>
@@ -173,9 +171,9 @@ class IssuesBook extends View {
     //}
 
   }
-  toggleWindow(){
-    console.log("toggleWindow triggered");
 
+  toggleWindow(){
+    
     this._overlay.classList.toggle('hidden')
     this._model.classList.toggle('hidden')
   }

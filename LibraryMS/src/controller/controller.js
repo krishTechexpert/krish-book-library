@@ -3,11 +3,11 @@ import AddStudentView from "../views/addStudentView.js";
 import StudentList from "../views/studentsList.js";
 import AddBook from "../views/addBook.js";
 import IssuesBook from "../views/issuesBook.js";
-
+import Dashboard from "../views/dashBoard.js";
+import dashBoard from "../views/dashBoard.js";
 
 const addStudentController = function(data){
   model.insertStudentDetails(data)
-  console.log("store",model.state)
 }
 
 const studentListController = function(){
@@ -20,9 +20,10 @@ const deleteStudentController = function(id){
   StudentList.updateStudentRecord(model.state.students)
 }
 
-const booksIssuesPerStudentController = function(stdId){
+// list of individual books that students got it.
+const StudentIssuesBookListController = function(stdId){
   try{
-    const student = model.booksIssuesToStudents(stdId);
+    const student = model.studentIssuedBookList(stdId);
     IssuesBook.bookIssueListModel(student)
 
   }catch(error){
@@ -39,9 +40,10 @@ const issuesBookController = function(){
   return model.state;
 }
 
+// 1 book to many students
 const mapBookwithStudentController = function(stdId,bookId){
   try{
-    model.UpdateBooksIssuesToStudents(stdId,bookId)
+    model.singleBookIssuedToMultipleStudents(stdId,bookId)
   }catch(error){
     console.log(error)
     StudentList.errorMessage(error.message)
@@ -50,6 +52,16 @@ const mapBookwithStudentController = function(stdId,bookId){
 }
 
 
+const dashBoardController = function(){
+  console.log(model.state)
+  return model.state.books
+}
+
+const oneBookIssueToManyStudentController = function(bookId){
+  const studentList =model.dashboard(bookId)
+  dashBoard.studentListModel(studentList);
+  //return studentList;
+}
  
 
 
@@ -58,15 +70,22 @@ function appStart(){
   //student
   AddStudentView.showStudentForm(addStudentController);
   StudentList.showStudentRecords(studentListController)
-  StudentList.bookIssuesToStudent(booksIssuesPerStudentController);
+  StudentList.bookIssuesToStudent(StudentIssuesBookListController);
   StudentList.deleteStudent(deleteStudentController)
   // book
   AddBook.showBookForm(addBookController)
 
+  // issued book
   IssuesBook.showBookIssueForm(issuesBookController,mapBookwithStudentController);
-  
- 
+
+  //dashboard
+  Dashboard.showBooksRecords(dashBoardController)
+  Dashboard.bookIssuesToManyStudent(oneBookIssueToManyStudentController)
 }
 
 appStart();
 
+window.addEventListener('DOMContentLoaded',function(){
+  Dashboard.render(model.state.books)
+
+})
