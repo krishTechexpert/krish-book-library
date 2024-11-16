@@ -1,19 +1,11 @@
 import View from "./View";
+import Modal from "./popup"
+
 class IssuesBook extends View {
   _parentElement=document.querySelector('#issue-book-container');
   _issueBook=document.querySelector('#issue-book-btn');
-  _overlay=document.querySelector('.overlay');
-  _model=document.querySelector('.model');
-  _closedModel=document.querySelector('.closed-btn')
   _mapBookWithStudent;
   
-  constructor(){
-    super();
-      this._closedModel.addEventListener('click', this.toggleWindow.bind(this)); // attach event listener once
-      this._overlay.addEventListener('click', this.toggleWindow.bind(this));
-      
-  }
-
   showBookIssueForm(issuesBookController,mapBookwithStudentController){
     this._issueBook.addEventListener('click',() => {
       this.makeButtonActive(this._issueBook)
@@ -123,7 +115,7 @@ class IssuesBook extends View {
     })
   }
   bookIssueListModel(student){
-    const modelDataTable=this._model.querySelector('.table')
+    const modelDataTable=Modal._model.querySelector('.table')
     if(modelDataTable){
       modelDataTable.remove();
     }
@@ -144,7 +136,6 @@ class IssuesBook extends View {
       return rowsMarkup;
     }
 
-    this.addHandlerShowModal()
    const markup = `<div class="table">
     <h2>List of books issued to ${student.name}</h2>
     <table>
@@ -162,7 +153,9 @@ class IssuesBook extends View {
     </table> </div>
    `;
 
-   this._model.insertAdjacentHTML('afterbegin',markup)
+   Modal._model.insertAdjacentHTML('afterbegin',markup)
+   Modal.toggleWindow();
+
     // way2 -- Only add event listeners once without constructor initlialize
     //if (!this._isListenersAdded) {
       //this._closedModel.addEventListener('click', this.toggleWindow.bind(this));
@@ -172,15 +165,6 @@ class IssuesBook extends View {
 
   }
 
-  toggleWindow(){
-    
-    this._overlay.classList.toggle('hidden')
-    this._model.classList.toggle('hidden')
-  }
-  addHandlerShowModal(){
-    this.toggleWindow();
-    
-  }
   
   
 }

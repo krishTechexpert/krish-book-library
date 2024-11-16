@@ -102,10 +102,13 @@ function persistBooks(books){
   localStorage.setItem('booksTable',JSON.stringify(books))
 }
 
-const storage1=localStorage.getItem('studentsTable');
-const storage2=localStorage.getItem('booksTable');
 
-if(storage1 && storage2){
-  state.students = JSON.parse(storage1);
-  state.books=JSON.parse(storage2)
-}
+
+const initializeData = () => {
+  const students = localStorage.getItem('studentsTable');
+  const books = localStorage.getItem('booksTable');
+  if (students) state.students = JSON.parse(students);
+  if (books) state.books = JSON.parse(books);
+};
+
+initializeData();
