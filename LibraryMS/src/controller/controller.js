@@ -53,7 +53,6 @@ const mapBookwithStudentController = function(stdId,bookId){
 
 
 const dashBoardController = function(){
-  console.log(model.state)
   return model.state.books
 }
 
@@ -63,6 +62,10 @@ const oneBookIssueToManyStudentController = function(bookId){
   //return studentList;
 }
  
+const deleteBookController = function(bookId){
+  model.deleteBook(bookId)
+  Dashboard.updateDashboard(model.state.books)
+}
 
 
 function appStart(){
@@ -81,6 +84,7 @@ function appStart(){
   //dashboard
   Dashboard.showBooksRecords(dashBoardController)
   Dashboard.bookIssuesToManyStudent(oneBookIssueToManyStudentController)
+  Dashboard.deleteBook(deleteBookController)
 }
 
 appStart();

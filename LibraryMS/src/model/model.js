@@ -89,6 +89,25 @@ const studentList = state.students
   }
 }
 
+export const deleteBook =function(id){
+  const bookIndex =state.books.findIndex(row => row.ISBN === id)
+
+  const updateStudents = [...state.students]
+  updateStudents && updateStudents.map(std => {
+    const bookIndex = std.assignBooks && std.assignBooks.findIndex(book => book.ISBN === id) 
+    std.assignBooks.splice(bookIndex,1)
+    return std;
+  })
+
+
+
+  state.books.splice(bookIndex,1)
+  state.students=updateStudents;
+  persistBooks(state.books)
+  persistStudents(state.students)
+
+}
+
 export const insertBook = function(books){
   state.books.push(books)
   persistBooks(state.books)

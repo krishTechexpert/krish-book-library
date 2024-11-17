@@ -13,7 +13,7 @@ class Dashboard extends View{
 
     })
   }
-  updateStudentRecord(records){
+  updateDashboard(records){
     this.render(records)
   }
 
@@ -55,13 +55,13 @@ class Dashboard extends View{
       
     })
   }
-  deleteBook(handler){
+  deleteBook(deleteBookController){
     this._parentElement.addEventListener('click',function(e){
 
       const node =e.target.closest('.delete-book');
         if(!node) return null;
-        const bookId=node.dataset.bookId;
-        handler(bookId)
+        const bookId=node.dataset.bookid;
+        deleteBookController(bookId)
       
     })
   }
