@@ -51,7 +51,7 @@ export const singleBookIssuedToMultipleStudents=function(studentId,bookId=''){
     
     if(student.maxAllowedBook ==0){
       throw new Error('Only 3 Books allows per student to issue. Please return some of your books to get new one.')
-    }
+    }else{
 
     // Update book issue details and student record immutably
     const updatedStudent = { 
@@ -66,7 +66,7 @@ export const singleBookIssuedToMultipleStudents=function(studentId,bookId=''){
       state.students[studentIndex] = updatedStudent;
     }
     return updatedStudent;
-
+  }
   }
 
 }catch(error){
@@ -96,6 +96,7 @@ export const deleteBook =function(id){
   updateStudents && updateStudents.map(std => {
     const bookIndex = std.assignBooks && std.assignBooks.findIndex(book => book.ISBN === id) 
     std.assignBooks.splice(bookIndex,1)
+    std.maxAllowedBook++;
     return std;
   })
 
