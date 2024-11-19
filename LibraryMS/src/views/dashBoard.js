@@ -4,11 +4,11 @@ class Dashboard extends View{
   _parentElement=document.querySelector('#dashboard-container');
   _dashboardButton =  document.querySelector('#dashboard-btn');
 
-  showBooksRecords(handler){
+  showBooksRecords(dashBoardController){
     this._dashboardButton.addEventListener('click',() => {
       this.makeButtonActive(this._dashboardButton)
       this.resetHTML(this._parentElement)
-      const records= handler();
+      const records= dashBoardController();
       this.render(records)
 
     })
@@ -18,6 +18,7 @@ class Dashboard extends View{
   }
 
   generateMarkup(data){
+    console.log(data)
     if (!data || data.length === 0) {
       return `<h2>Books Details</h2><table><tr><td>No record found</td></tr></table>`;
     }

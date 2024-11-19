@@ -40,20 +40,20 @@ class StudentList extends View{
             <td>${std.phone}</td>
             <td>${std.address}</td>
             <td>${std.class}</td>
-            <td class="asigned-book" data-stdId-book-asigned="${std.id}">Books</td>
+            <td class="asigned-book" data-stdId-book-asigned="${std.id}">Books (${std.assignBooks.length })</td>
             <td class="delete-student" data-stdId="${std.id}">X</td>
             </tr>`
           })
           return markup  + result.join('')
         }
   }
-  bookIssuesToStudent(booksIssuesPerStudentController){
+  bookIssuesToStudent(StudentIssuesBookListController){
     this._parentElement.addEventListener('click',function(e){
 
       const node =e.target.closest('.asigned-book');
         if(!node) return null;
         const studentId=node.dataset.stdidBookAsigned;
-        booksIssuesPerStudentController(studentId)
+        StudentIssuesBookListController(studentId)
       
     })
   }

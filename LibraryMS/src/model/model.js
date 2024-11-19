@@ -21,13 +21,15 @@ export const deleteStudent =function(id){
 // check one student issued how many books maxBook allowed=3
 export const studentIssuedBookList=function(studentId){
   
-  const student =state.students.find(row => row.id === studentId)
-  if(student.assignBooks.length ===0){
+  const updateStudent = [...state.students]
+  const studentWithBooks =updateStudent.find(row => row.id === studentId)
+  if(studentWithBooks.assignBooks.length ===0){
     throw new Error('No books assiged yet')
   }else {
-      const studentWithBooks =state.students.find(row => row.id === studentId)
-      const index =state.students.findIndex(row => row.id === studentId)
-      state.students[index]=studentWithBooks;
+      const index =updateStudent.findIndex(row => row.id === studentId)
+      //studentWithBooks.maxAllowedBook--;
+      updateStudent[index]=studentWithBooks;
+      state.students=updateStudent;
       persistStudents(state.students)
       return studentWithBooks
   }
@@ -52,19 +54,21 @@ export const singleBookIssuedToMultipleStudents=function(studentId,bookId=''){
     if(student.maxAllowedBook ==0){
       throw new Error('Only 3 Books allows per student to issue. Please return some of your books to get new one.')
     }else{
-
     // Update book issue details and student record immutably
     const updatedStudent = { 
       ...student,
-      maxAllowedBook: student.maxAllowedBook - 1,
+      maxAllowedBook: student.maxAllowedBook-1,
       assignBooks: [...(student.assignBooks || []), { ...book, issueDate: new Date().toLocaleDateString() }]
     };
 
+    
     // Update the student in state.students
     const studentIndex = state.students.findIndex(row => row.id === studentId);
     if (studentIndex !== -1) {
       state.students[studentIndex] = updatedStudent;
     }
+    persistStudents(state.students)
+
     return updatedStudent;
   }
   }
@@ -96,7 +100,10 @@ export const deleteBook =function(id){
   updateStudents && updateStudents.map(std => {
     const bookIndex = std.assignBooks && std.assignBooks.findIndex(book => book.ISBN === id) 
     std.assignBooks.splice(bookIndex,1)
-    std.maxAllowedBook++;
+    if(std.maxAllowedBook<=3){
+      std.maxAllowedBook++;
+
+    }
     return std;
   })
 
